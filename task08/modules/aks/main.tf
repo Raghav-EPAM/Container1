@@ -21,15 +21,15 @@ resource "azurerm_kubernetes_cluster" "aks" {
 }
 
 resource "azurerm_role_assignment" "aks_pull_acr" {
-  principal_id         = var.kubelet_identity_object_id
+  principal_id         = var.object_id
   role_definition_name = "AcrPull"
   scope                = var.acr_id
 }
 
 resource "azurerm_key_vault_access_policy" "aks_kv_policy" {
   key_vault_id = var.key_vault_id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+  tenant_id    = var.tenant_id
+  object_id    = var.object_id
 
   secret_permissions = [
     "Get",

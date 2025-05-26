@@ -14,6 +14,8 @@ module "keyvault" {
   resource_group_name = local.rg_name
   location            = var.location
   sku_name            = var.sku_name_keyvault
+  tenant_id           = var.tenant_id
+  object_id           = var.object_id
   tags                = local.common_tags
 }
 
@@ -47,7 +49,7 @@ module "acr" {
 module "aci" {
   source = "./modules/aci"
 
-  instance_name      = local.aci_name
+  aci_name           = local.aci_name
   location           = var.location
   rg_name            = local.rg_name
   image_name         = local.app_image_name
@@ -65,17 +67,17 @@ module "aci" {
 module "aks" {
   source = "./modules/aks"
 
-  aks_name                   = local.aks_name
-  location                   = var.location
-  rg_name                    = local.rg_name
-  tags                       = local.common_tags
-  dns_prefix                 = local.dns_prefix
-  node_pool_name             = local.aks_name
-  node_count                 = var.node_count
-  vm_size                    = var.vm_size
-  os_disk_type               = var.os_disk_type
-  user_assigned_identity_id  = module.keyvault.user_assigned_identity_id
-  kubelet_identity_object_id = module.keyvault.kubelet_identity_object_id
-  acr_id                     = module.acr.acr_id
-  key_vault_id               = module.keyvault.key_vault_id
+  aks_name       = local.aks_name
+  location       = var.location
+  rg_name        = local.rg_name
+  tags           = local.common_tags
+  dns_prefix     = local.dns_prefix
+  node_pool_name = local.aks_name
+  node_count     = var.node_count
+  vm_size        = var.vm_size
+  os_disk_type   = var.os_disk_type
+  tenant_id      = var.tenant_id
+  object_id      = var.object_id
+  acr_id         = module.acr.acr_id
+  key_vault_id   = module.keyvault.key_vault_id
 }

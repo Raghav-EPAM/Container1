@@ -43,7 +43,7 @@ variable "os_disk_type" {
   type        = string
 }
 
-variable "user_assigned_identity_id" {
+/*variable "user_assigned_identity_id" {
   description = "User Assigned Identity ID for the AKS cluster"
   type        = string
 }
@@ -51,7 +51,7 @@ variable "user_assigned_identity_id" {
 variable "kubelet_identity_object_id" {
   description = "Object ID of the AKS cluster's kubelet identity"
   type        = string
-}
+}*/
 
 variable "acr_id" {
   description = "ID of the Azure Container Registry"
@@ -60,5 +60,15 @@ variable "acr_id" {
 
 variable "key_vault_id" {
   description = "Key Vault ID for storing secrets"
+  type        = string
+}
+
+variable "tenant_id" {
+  description = "Tenant ID for the Azure subscription"
+  type        = string
+}
+
+variable "object_id" {
+  description = "Object ID for the Azure subscription"
   type        = string
 }

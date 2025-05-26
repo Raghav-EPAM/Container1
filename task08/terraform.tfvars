@@ -20,3 +20,5 @@ image_tag           = "latest"
 node_count   = 1
 vm_size      = "Standard_D2ads_v5"
 os_disk_type = "Ephemeral"
+tenant_id    = "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
+object_id    = "d43aa0ec-98db-499f-aa78-696387562913"
