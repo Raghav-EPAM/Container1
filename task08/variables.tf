@@ -11,15 +11,15 @@ variable "location" {
 variable "rg_name" {
   description = "Name of the resource group"
   type        = string
-  default     = "${var.name_prefix}-rg"
+  /*default     = "${var.name_prefix}-rg"*/
 }
 
 variable "tags" {
   description = "Tags for the resources"
   type        = map(string)
-  default = {
+  /*default = {
     "Creator" = "raghav_jaiswal@epam.com"
-  }
+  }*/
 }
 
 /*variable "tenant_id" {
