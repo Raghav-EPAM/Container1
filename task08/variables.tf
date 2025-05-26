@@ -11,7 +11,7 @@ variable "location" {
 variable "rg_name" {
   description = "Name of the resource group"
   type        = string
-  default     = "${var.name_prefix}-rg"
+  default     = "cmtr-wp09pu9z-mod8-rg"
 }
 
 variable "tags" {
