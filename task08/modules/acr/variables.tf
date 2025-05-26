@@ -37,7 +37,6 @@ variable "github_context_path" {
 variable "git_pat" {
   description = "GitHub Personal Access Token"
   type        = string
-  sensitive   = true
 }
 
 variable "tags" {
