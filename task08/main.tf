@@ -74,3 +74,9 @@ module "aks" {
   acr_id         = module.acr.acr_id
   key_vault_id   = module.keyvault.keyvault_id
 }
+
+data "kubernetes_service" "k8_service" {
+  metadata {
+    name = "redis-flask-app-service"
+  }
+}

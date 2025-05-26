@@ -7,7 +7,7 @@ resource "azurerm_user_assigned_identity" "k8s_identity" {
 resource "azurerm_role_assignment" "aks_pull_acr" {
   principal_id         = azurerm_user_assigned_identity.k8s_identity.principal_id
   role_definition_name = "AcrPull"
-  scope                = data.azurerm_container_registry.acr.id
+  scope                = var.acr_id
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
@@ -45,7 +45,7 @@ resource "azurerm_key_vault_access_policy" "aks_kv_policy" {
     "Get",
     "List",
     "Set",
-    "list",
+    "Delete",
     "Purge"
   ]
 }
