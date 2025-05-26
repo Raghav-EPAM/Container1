@@ -10,7 +10,7 @@ locals {
   app_image_name = format("%s-app", var.name_prefix)
 
   # ACI
-  instance_name = format("%s-ci", var.name_prefix)
+  aci_name = format("%s-ci", var.name_prefix)
 
   # AKS
   aks_name = format("%s-aks", var.name_prefix)

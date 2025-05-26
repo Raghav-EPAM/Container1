@@ -47,7 +47,7 @@ module "acr" {
 module "aci" {
   source = "./modules/aci"
 
-  instance_name      = local.instance_name
+  instance_name      = local.aci_name
   location           = var.location
   rg_name            = local.rg_name
   image_name         = local.app_image_name

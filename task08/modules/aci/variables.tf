@@ -3,7 +3,7 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "instance_name" {
+variable "aci_name" {
   description = "The name of the container instance"
   type        = string
 }

@@ -1,5 +1,5 @@
 resource "azurerm_container_group" "aci" {
-  name                = var.instance_name
+  name                = var.aci_name
   location            = var.location
   resource_group_name = var.rg_name
   os_type             = "Linux"
