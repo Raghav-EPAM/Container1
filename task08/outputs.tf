@@ -1,6 +1,6 @@
-output "fqdn" {
+output "aci_fqdn" {
   description = "FQDN of the Azure Container Instance"
-  value       = module.aci.fqdn
+  value       = module.aci.aci_fqdn
 }
 
 /*output "aks_lb_ip" {
