@@ -7,6 +7,7 @@ variable "aci_name" {
   description = "The name of the container instance"
   type        = string
 }
+
 variable "location" {
   description = "The Azure region to deploy the container instance"
   type        = string
