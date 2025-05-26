@@ -1,6 +1,3 @@
-data "azurerm_client_config" "current" {}
-
-
 resource "azurerm_resource_group" "resource_group" {
   name     = local.rg_name
   location = var.location
@@ -10,13 +7,11 @@ resource "azurerm_resource_group" "resource_group" {
 module "keyvault" {
   source = "./modules/keyvault"
 
-  key_vault_name      = local.keyvault_name
-  resource_group_name = local.rg_name
-  location            = var.location
-  sku_name            = var.sku_name_keyvault
-  tenant_id           = var.tenant_id
-  object_id           = var.object_id
-  tags                = local.common_tags
+  key_vault_name = local.keyvault_name
+  rg_name        = local.rg_name
+  location       = var.location
+  sku_name       = var.sku_name_keyvault
+  tags           = local.common_tags
 }
 
 module "redis" {
@@ -76,8 +71,6 @@ module "aks" {
   node_count     = var.node_count
   vm_size        = var.vm_size
   os_disk_type   = var.os_disk_type
-  tenant_id      = var.tenant_id
-  object_id      = var.object_id
   acr_id         = module.acr.acr_id
   key_vault_id   = module.keyvault.keyvault_id
 }

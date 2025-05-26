@@ -22,16 +22,6 @@ variable "tags" {
   }
 }
 
-variable "tenant_id" {
-  description = "Tenant ID for the Azure subscription"
-  type        = string
-}
-
-variable "object_id" {
-  description = "Object ID for the Azure subscription"
-  type        = string
-}
-
 variable "sku_name_keyvault" {
   description = "SKU name for the Key Vault"
   type        = string

@@ -62,13 +62,3 @@ variable "key_vault_id" {
   description = "Key Vault ID for storing secrets"
   type        = string
 }
-
-variable "tenant_id" {
-  description = "Tenant ID for the Azure subscription"
-  type        = string
-}
-
-variable "object_id" {
-  description = "Object ID for the Azure subscription"
-  type        = string
-}
