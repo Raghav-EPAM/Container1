@@ -13,7 +13,7 @@ module "keyvault" {
   key_vault_name      = local.keyvault_name
   resource_group_name = local.rg_name
   location            = var.location
-  sku_name            = var.sku_name
+  sku_name            = var.sku_name_keyvault
   tags                = local.common_tags
 }
 
@@ -25,7 +25,7 @@ module "redis" {
   rg_name        = local.rg_name
   redis_capacity = var.redis_capacity
   redis_family   = var.redis_family
-  sku_name       = var.sku_name
+  sku_name       = var.sku_name_redis
   key_vault_id   = module.keyvault.key_vault_id
   tags           = local.common_tags
 }
@@ -36,7 +36,7 @@ module "acr" {
   acr_name            = local.acr_name
   location            = var.location
   rg_name             = local.rg_name
-  sku                 = var.sku_name
+  sku                 = var.sku_name_acr
   tags                = local.common_tags
   github_context_path = var.github_context_path
   git_pat             = var.git_pat

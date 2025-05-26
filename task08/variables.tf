@@ -28,7 +28,7 @@ variable "object_id" {
   type        = string
 }
 
-variable "sku_name" {
+variable "sku_name_keyvault" {
   description = "SKU name for the Key Vault"
   type        = string
 }
@@ -70,5 +70,15 @@ variable "vm_size" {
 
 variable "os_disk_type" {
   description = "OS disk type for the AKS nodes"
+  type        = string
+}
+
+variable "sku_name_redis" {
+  description = "SKU name for the Redis cache"
+  type        = string
+}
+
+variable "sku_name_acr" {
+  description = "SKU name for the Azure Container Registry"
   type        = string
 }

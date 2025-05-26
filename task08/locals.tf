@@ -1,5 +1,5 @@
 locals {
-  name_prefix = "cmtr-wp09pu9z-mod8"
+  name_prefix = var.name_prefix
 
   rg_name = format("%s-rg", var.name_prefix)
 
