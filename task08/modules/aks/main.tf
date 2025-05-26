@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.aks_name
   location            = var.location
@@ -16,7 +18,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "UserAssigned"
   }
 
-  key_vault_secrets_provider {}
+  key_vault_secrets_provider {
+    secret_rotation_enabled  = true
+    secret_rotation_interval = "2m"
+  }
   role_based_access_control_enabled = true
 }
 

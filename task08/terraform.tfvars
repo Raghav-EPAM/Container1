@@ -11,7 +11,7 @@ redis_family   = "C"
 sku_name_redis = "Basic"
 
 #acr values
-sku_name_acr        = "standard"
+sku_name_acr        = "Standard"
 github_context_path = "https://github.com/Raghav-EPAM/Container1.git"
 git_pat             = "ghp_1234567890abcdef1234567890abcdef12345678"
 image_tag           = "latest"

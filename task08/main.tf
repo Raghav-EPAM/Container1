@@ -28,7 +28,7 @@ module "redis" {
   redis_capacity = var.redis_capacity
   redis_family   = var.redis_family
   sku_name       = var.sku_name_redis
-  key_vault_id   = module.keyvault.key_vault_id
+  key_vault_id   = module.keyvault.keyvault_id
   tags           = local.common_tags
 }
 
@@ -72,12 +72,12 @@ module "aks" {
   rg_name        = local.rg_name
   tags           = local.common_tags
   dns_prefix     = local.dns_prefix
-  node_pool_name = local.aks_name
+  node_pool_name = local.aks_node_pool_name
   node_count     = var.node_count
   vm_size        = var.vm_size
   os_disk_type   = var.os_disk_type
   tenant_id      = var.tenant_id
   object_id      = var.object_id
   acr_id         = module.acr.acr_id
-  key_vault_id   = module.keyvault.key_vault_id
+  key_vault_id   = module.keyvault.keyvault_id
 }

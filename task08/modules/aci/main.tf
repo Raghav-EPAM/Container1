@@ -3,7 +3,7 @@ resource "azurerm_container_group" "aci" {
   location            = var.location
   resource_group_name = var.rg_name
   os_type             = "Linux"
-  ip_address_type     = "public"
+  ip_address_type     = "Public"
   dns_name_label      = var.dns_name_label
   tags                = var.tags
 
