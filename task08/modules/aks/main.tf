@@ -20,10 +20,14 @@ resource "azurerm_kubernetes_cluster" "aks" {
   role_based_access_control_enabled = true
 }
 
+data "azurerm_subscription" "primary" {
+
+}
+
 resource "azurerm_role_assignment" "aks_pull_acr" {
-  principal_id         = var.object_id
+  principal_id         = data.azurerm_client_config.current.object_id
   role_definition_name = "AcrPull"
-  scope                = var.acr_id
+  scope                = data.azurerm_subscription.primary.id
 }
 
 resource "azurerm_key_vault_access_policy" "aks_kv_policy" {
