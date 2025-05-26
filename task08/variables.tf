@@ -11,7 +11,7 @@ variable "location" {
 variable "rg_name" {
   description = "Name of the resource group"
   type        = string
-  default = "${var.name_prefix}-rg"
+  default     = "${var.name_prefix}-rg"
 }
 
 variable "tags" {
@@ -22,6 +22,15 @@ variable "tags" {
   }
 }
 
+/*variable "tenant_id" {
+  description = "Tenant ID for the Azure subscription"
+  type        = string
+}
+
+variable "object_id" {
+  description = "Object ID for the Azure subscription"
+  type        = string
+}*/
 
 variable "sku_name_keyvault" {
   description = "SKU name for the Key Vault"
