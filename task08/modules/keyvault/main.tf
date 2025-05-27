@@ -18,8 +18,8 @@ resource "azurerm_user_assigned_identity" "keyvault_identity" {
 
 resource "azurerm_key_vault_access_policy" "keyvault_policy" {
   key_vault_id = azurerm_key_vault.keyvault.id
-  tenant_id = azurerm_user_assigned_identity.keyvault_identity.tenant_id
-  object_id = azurerm_user_assigned_identity.keyvault_identity.principal_id
+  tenant_id    = azurerm_user_assigned_identity.keyvault_identity.tenant_id
+  object_id    = azurerm_user_assigned_identity.keyvault_identity.principal_id
 
   secret_permissions = [
     "Get",
