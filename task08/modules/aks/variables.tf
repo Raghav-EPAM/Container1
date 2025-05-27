@@ -43,16 +43,6 @@ variable "os_disk_type" {
   type        = string
 }
 
-/*variable "user_assigned_identity_id" {
-  description = "User Assigned Identity ID for the AKS cluster"
-  type        = string
-}
-
-variable "kubelet_identity_object_id" {
-  description = "Object ID of the AKS cluster's kubelet identity"
-  type        = string
-}*/
-
 variable "acr_id" {
   description = "ID of the Azure Container Registry"
   type        = string
