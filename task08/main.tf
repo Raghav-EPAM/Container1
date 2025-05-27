@@ -16,6 +16,7 @@ module "keyvault" {
   location       = var.location
   sku_name       = var.sku_name_keyvault
   tags           = local.common_tags
+  depends_on = [ azurerm_resource_group.resource_group ]
 }
 
 module "redis" {
@@ -29,6 +30,7 @@ module "redis" {
   sku_name       = var.sku_name_redis
   key_vault_id   = module.keyvault.keyvault_id
   tags           = local.common_tags
+  depends_on = [ azurerm_resource_group.resource_group ]
 }
 
 module "acr" {
@@ -43,6 +45,7 @@ module "acr" {
   git_pat             = var.git_pat
   image_name          = local.app_image_name
   image_tag           = var.image_tag
+  depends_on = [ azurerm_resource_group.resource_group ]
 }
 
 module "aci" {
@@ -61,6 +64,7 @@ module "aci" {
   container_name     = local.container_name
   dns_name_label     = local.dns_name_label
   tags               = local.common_tags
+  depends_on = [ azurerm_resource_group.resource_group ]
 }
 
 module "aks" {
@@ -77,6 +81,7 @@ module "aks" {
   os_disk_type   = var.os_disk_type
   acr_id         = module.acr.acr_id
   key_vault_id   = module.keyvault.keyvault_id
+  depends_on = [ azurerm_resource_group.resource_group ]
 }
 
 provider "kubectl" {
