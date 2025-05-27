@@ -45,7 +45,7 @@ module "acr" {
   git_pat             = var.git_pat
   image_name          = local.app_image_name
   image_tag           = var.image_tag
-  depends_on          = [azurerm_resource_group.resource_group, module.aci]
+  depends_on          = [azurerm_resource_group.resource_group]
 }
 
 module "aci" {
