@@ -153,4 +153,5 @@ resource "azurerm_user_assigned_identity" "identity" {
   location            = var.location # Place identity in same region as AKS cluster
   name                = "identity"   # Friendly name for tracking in Azure portal
   resource_group_name = var.rg_name  # Identity lives in the same RG as AKS
+  depends_on          = [azurerm_resource_group.resource_group]
 }
