@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_key_vault" "keyvault" {
   name                     = var.key_vault_name
   location                 = var.location
@@ -16,8 +18,6 @@ resource "azurerm_user_assigned_identity" "keyvault_identity" {
 
 resource "azurerm_key_vault_access_policy" "keyvault_policy" {
   key_vault_id = azurerm_key_vault.keyvault.id
-  /*tenant_id    = var.tenant_id
-  object_id    = var.object_id*/
   tenant_id = azurerm_user_assigned_identity.keyvault_identity.tenant_id
   object_id = azurerm_user_assigned_identity.keyvault_identity.principal_id
 
