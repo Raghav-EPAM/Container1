@@ -18,5 +18,5 @@ image_tag           = "latest"
 
 #aks values
 node_count   = 1
-vm_size      = "Standard_D2ads_v5"
+vm_size      = "Standard_DS2_v2"
 os_disk_type = "Ephemeral"
