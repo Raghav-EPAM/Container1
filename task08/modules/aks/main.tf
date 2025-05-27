@@ -36,9 +36,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
   role_based_access_control_enabled = true
 }
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_key_vault_access_policy" "aks_kv_policy" {
   key_vault_id = var.key_vault_id
-  tenant_id    = azurerm_user_assigned_identity.k8s_identity.tenant_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = azurerm_user_assigned_identity.k8s_identity.principal_id
 
   secret_permissions = [
