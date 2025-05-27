@@ -17,6 +17,4 @@ git_pat             = "ghp_1234567890abcdef1234567890abcdef12345678"
 image_tag           = "latest"
 
 #aks values
-node_count   = 1
-vm_size      = "Standard_DS2_v2"
-os_disk_type = "Ephemeral"
+node_count = 1

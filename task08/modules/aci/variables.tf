@@ -62,3 +62,8 @@ variable "dns_name_label" {
   description = "The DNS name label for the container instance"
   type        = string
 }
+
+variable "acr_id" {
+  description = "The ID of the Azure Container Registry"
+  type        = string
+}

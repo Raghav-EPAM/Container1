@@ -45,7 +45,7 @@ module "acr" {
   git_pat             = var.git_pat
   image_name          = local.app_image_name
   image_tag           = var.image_tag
-  depends_on          = [azurerm_resource_group.resource_group]
+  depends_on          = [azurerm_resource_group.resource_group, module.aci]
 }
 
 module "aci" {
@@ -63,6 +63,7 @@ module "aci" {
   acr_admin_password = module.acr.acr_admin_password
   container_name     = local.container_name
   dns_name_label     = local.dns_name_label
+  acr_id             = module.acr.acr_id
   tags               = local.common_tags
   depends_on         = [azurerm_resource_group.resource_group]
 }
@@ -77,11 +78,9 @@ module "aks" {
   dns_prefix     = local.dns_prefix
   node_pool_name = local.aks_node_pool_name
   node_count     = var.node_count
-  vm_size        = var.vm_size
-  os_disk_type   = var.os_disk_type
   acr_id         = module.acr.acr_id
   key_vault_id   = module.keyvault.keyvault_id
-  depends_on     = [azurerm_resource_group.resource_group]
+  depends_on     = [azurerm_resource_group.resource_group, module.aci]
 }
 
 provider "kubectl" {

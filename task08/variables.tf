@@ -57,16 +57,6 @@ variable "node_count" {
   type        = number
 }
 
-variable "vm_size" {
-  description = "VM size for the AKS nodes"
-  type        = string
-}
-
-variable "os_disk_type" {
-  description = "OS disk type for the AKS nodes"
-  type        = string
-}
-
 variable "sku_name_redis" {
   description = "SKU name for the Redis cache"
   type        = string

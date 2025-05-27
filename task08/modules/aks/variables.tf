@@ -33,16 +33,6 @@ variable "node_count" {
   type        = number
 }
 
-variable "vm_size" {
-  description = "VM size for the AKS nodes"
-  type        = string
-}
-
-variable "os_disk_type" {
-  description = "OS disk type for the AKS nodes"
-  type        = string
-}
-
 variable "acr_id" {
   description = "ID of the Azure Container Registry"
   type        = string
