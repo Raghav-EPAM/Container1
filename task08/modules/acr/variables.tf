@@ -18,7 +18,7 @@ variable "rg_name" {
   type        = string
 }
 
-variable "image_name" {
+variable "docker_image_name" {
   description = "Name of the docker image"
   type        = string
 }

@@ -38,16 +38,15 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
 data "azurerm_client_config" "current" {}
 
+data "azurerm_user_assigned_identity" "k8s_identity" {
+  name                = "k8s-identity-data"
+  resource_group_name = var.rg_name
+}
+
 resource "azurerm_key_vault_access_policy" "aks_kv_policy" {
   key_vault_id = var.key_vault_id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_user_assigned_identity.k8s_identity.principal_id
+  object_id    = data.azurerm_user_assigned_identity.k8s_identity.principal_id
 
-  secret_permissions = [
-    "Get",
-    "List",
-    "Set",
-    "Delete",
-    "Purge"
-  ]
+  secret_permissions = ["Get", "List"]
 }

@@ -8,6 +8,8 @@ resource "azurerm_resource_group" "resource_group" {
   tags     = local.common_tags
 }
 
+data "azurerm_client_config" "current" {}
+
 module "keyvault" {
   source = "./modules/keyvault"
 
@@ -15,6 +17,8 @@ module "keyvault" {
   rg_name        = local.rg_name
   location       = var.location
   sku_name       = var.sku_name_keyvault
+  object_id      = data.azurerm_client_config.current.object_id
+  tenant_id      = data.azurerm_client_config.current.tenant_id
   tags           = local.common_tags
   depends_on     = [azurerm_resource_group.resource_group]
 }
@@ -43,7 +47,7 @@ module "acr" {
   tags                = local.common_tags
   github_context_path = var.github_context_path
   git_pat             = var.git_pat
-  image_name          = local.app_image_name
+  docker_image_name   = local.app_image_name
   image_tag           = var.image_tag
   depends_on          = [azurerm_resource_group.resource_group]
 }

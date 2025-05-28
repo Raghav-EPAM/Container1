@@ -22,3 +22,13 @@ variable "sku_name" {
   description = "The SKU name of the Key Vault"
   type        = string
 }
+
+variable "tenant_id" {
+  description = "The tenant ID for the Key Vault access policy"
+  type        = string
+}
+
+variable "object_id" {
+  description = "The object ID for the Key Vault access policy"
+  type        = string
+}
