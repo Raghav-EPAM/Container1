@@ -6,7 +6,7 @@ locals {
   acr_name = lower(replace(format("%scr", var.name_prefix), "-", ""))
 
   # App Image Name
-  app_image_name = format("%s-app", var.name_prefix)
+  app_image_name = format("%s-app:latest", var.name_prefix)
 
   # ACI
   aci_name = format("%s-ci", var.name_prefix)
