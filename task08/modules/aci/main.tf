@@ -7,14 +7,22 @@ resource "azurerm_container_group" "aci" {
   dns_name_label      = var.dns_name_label
   tags                = var.tags
 
+
+
+  image_registry_credential {
+    server   = var.acr_login_server
+    username = var.acr_admin_username
+    password = var.acr_admin_password
+  }
+
   container {
     name   = var.container_name
-    image  = "${var.acr_login_server}/${var.image_name}:${var.image_tag}"
+    image  = "${var.acr_login_server}/${var.image_name}"
     cpu    = 1
     memory = 1.5
 
     ports {
-      port     = 8080
+      port     = 80
       protocol = "TCP"
     }
 
@@ -30,14 +38,8 @@ resource "azurerm_container_group" "aci" {
     }
   }
 
-  image_registry_credential {
-    server   = var.acr_login_server
-    username = var.acr_admin_username
-    password = var.acr_admin_password
-  }
-
   exposed_port {
-    port     = 8080
+    port     = 80
     protocol = "TCP"
   }
 }

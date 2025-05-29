@@ -52,15 +52,27 @@ module "acr" {
   depends_on          = [azurerm_resource_group.resource_group]
 }
 
+data "azurerm_key_vault_secret" "redis_pwd" {
+  name         = local.redis_primary_key_secret_name
+  key_vault_id = module.keyvault.keyvault_id
+  depends_on   = [module.redis]
+}
+data "azurerm_key_vault_secret" "redis_hostname" {
+  name         = local.redis_hostname_secret_name
+  key_vault_id = module.keyvault.keyvault_id
+  depends_on   = [module.redis]
+}
+
 module "aci" {
   source = "./modules/aci"
 
-  aci_name           = local.aci_name
-  location           = var.location
-  rg_name            = local.rg_name
-  image_name         = local.app_image_name
-  image_tag          = var.image_tag
-  redis_hostname     = module.redis.redis_hostname
+  aci_name       = local.aci_name
+  location       = var.location
+  rg_name        = local.rg_name
+  image_name     = local.app_image_name
+  image_tag      = var.image_tag
+  redis_hostname = data.azurerm_key_vault_secret.redis_pwd.value
+
   redis_primary_key  = module.redis.redis_primary_key
   acr_login_server   = module.acr.acr_login_server
   acr_admin_username = module.acr.acr_admin_username
