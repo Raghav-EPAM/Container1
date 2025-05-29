@@ -34,7 +34,7 @@ module "redis" {
   sku_name       = var.sku_name_redis
   key_vault_id   = module.keyvault.keyvault_id
   tags           = local.common_tags
-  depends_on     = [azurerm_resource_group.resource_group]
+  depends_on     = [azurerm_resource_group.resource_group, module.keyvault]
 }
 
 module "acr" {
@@ -81,7 +81,7 @@ module "aci" {
   dns_name_label     = local.dns_name_label
   acr_id             = module.acr.acr_id
   tags               = local.common_tags
-  depends_on         = [azurerm_resource_group.resource_group]
+  depends_on         = [azurerm_resource_group.resource_group, module.acr, module.keyvault, module.redis]
 }
 
 module "aks" {
@@ -96,7 +96,7 @@ module "aks" {
   node_count     = var.node_count
   acr_id         = module.acr.acr_id
   key_vault_id   = module.keyvault.keyvault_id
-  depends_on     = [azurerm_resource_group.resource_group, module.aci]
+  depends_on     = [azurerm_resource_group.resource_group, module.acr, module.keyvault, module.redis]
 }
 
 provider "kubectl" {
