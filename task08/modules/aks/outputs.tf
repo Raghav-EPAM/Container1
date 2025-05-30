@@ -5,6 +5,6 @@ output "kube_config" {
 }
 
 output "aks_kv_access_identity_id" {
-  value       = azurerm_user_assigned_identity.k8s_identity.id
-  description = "User Assigned Identity ID for AKS Key Vault access"
+  description = "value of the identity used for Key Vault access"
+  value       = azurerm_kubernetes_cluster.aks.kubelet_identity[0].client_id
 }

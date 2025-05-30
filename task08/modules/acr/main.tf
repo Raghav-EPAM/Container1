@@ -22,7 +22,6 @@ resource "azurerm_container_registry_task" "acr_task" {
     context_access_token = var.git_pat
     image_names          = [var.docker_image_name]
   }
-  depends_on = [azurerm_container_registry.acr]
 }
 
 resource "azurerm_container_registry_task_schedule_run_now" "acr_task_run_now" {
