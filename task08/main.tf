@@ -69,7 +69,7 @@ module "aci" {
   aci_name           = local.aci_name
   location           = var.location
   rg_name            = local.rg_name
-  image_name         = module.acr.docker_image_name
+  image_name         = local.app_image_name
   image_tag          = var.image_tag
   redis_hostname     = module.redis.redis_hostname
   redis_primary_key  = module.redis.redis_primary_key
