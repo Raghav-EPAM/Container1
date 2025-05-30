@@ -151,7 +151,7 @@ resource "kubectl_manifest" "secret_provider" {
     kv_name                    = local.keyvault_name
     redis_url_secret_name      = local.redis_hostname_secret_name
     redis_password_secret_name = local.redis_primary_key_secret_name
-    tenant_id                  = azurerm_user_assigned_identity.identity.tenant_id
+    tenant_id                  = data.azurerm_client_config.current.tenant_id
   })
 
   depends_on = [module.aks, kubectl_manifest.deployment, module.redis, module.keyvault]
