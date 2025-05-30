@@ -49,7 +49,7 @@ module "acr" {
   git_pat             = var.git_pat
   docker_image_name   = local.app_image_name
   image_tag           = var.image_tag
-  depends_on          = [azurerm_resource_group.resource_group]
+  depends_on          = [azurerm_resource_group.resource_group, module.redis]
 }
 
 data "azurerm_key_vault_secret" "redis_pwd" {
@@ -66,22 +66,22 @@ data "azurerm_key_vault_secret" "redis_hostname" {
 module "aci" {
   source = "./modules/aci"
 
-  aci_name       = local.aci_name
-  location       = var.location
-  rg_name        = local.rg_name
-  image_name     = local.app_image_name
-  image_tag      = var.image_tag
-  redis_hostname = data.azurerm_key_vault_secret.redis_pwd.value
-
+  aci_name           = local.aci_name
+  location           = var.location
+  rg_name            = local.rg_name
+  image_name         = module.acr.docker_image_name
+  image_tag          = var.image_tag
+  redis_hostname     = module.redis.redis_hostname
   redis_primary_key  = module.redis.redis_primary_key
   acr_login_server   = module.acr.acr_login_server
   acr_admin_username = module.acr.acr_admin_username
   acr_admin_password = module.acr.acr_admin_password
   container_name     = local.container_name
-  dns_name_label     = local.dns_name_label
+  dns_name_label     = local.aci_name
   acr_id             = module.acr.acr_id
   tags               = local.common_tags
-  depends_on         = [azurerm_resource_group.resource_group, module.acr, module.keyvault, module.redis]
+
+  depends_on = [azurerm_resource_group.resource_group, module.acr, module.keyvault, module.redis]
 }
 
 module "aks" {
@@ -96,7 +96,7 @@ module "aks" {
   node_count     = var.node_count
   acr_id         = module.acr.acr_id
   key_vault_id   = module.keyvault.keyvault_id
-  depends_on     = [azurerm_resource_group.resource_group, module.acr, module.keyvault, module.redis]
+  depends_on     = [azurerm_resource_group.resource_group, module.acr, module.keyvault, module.redis, module.aci]
 }
 
 provider "kubectl" {

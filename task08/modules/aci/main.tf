@@ -4,7 +4,7 @@ resource "azurerm_container_group" "aci" {
   resource_group_name = var.rg_name
   os_type             = "Linux"
   ip_address_type     = "Public"
-  dns_name_label      = var.dns_name_label
+  dns_name_label      = var.aci_name
   tags                = var.tags
 
 
@@ -18,8 +18,8 @@ resource "azurerm_container_group" "aci" {
   container {
     name   = var.container_name
     image  = "${var.acr_login_server}/${var.image_name}:latest"
-    cpu    = 1
-    memory = 1.5
+    cpu    = "1"
+    memory = "1.5"
 
     ports {
       port     = 8080
@@ -36,10 +36,5 @@ resource "azurerm_container_group" "aci" {
       REDIS_URL      = var.redis_hostname
       REDIS_PASSWORD = var.redis_primary_key
     }
-  }
-
-  exposed_port {
-    port     = 8080
-    protocol = "TCP"
   }
 }

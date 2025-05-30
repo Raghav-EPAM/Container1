@@ -29,7 +29,6 @@ locals {
     Creator = "raghav_jaiswal@epam.com"
   }
   container_name     = "raghav-conatiner-acr"
-  dns_name_label     = "mydnslabel"
   dns_prefix         = "${var.name_prefix}-k8s"
   aks_node_pool_name = "system"
 }
