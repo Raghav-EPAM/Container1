@@ -1,5 +1,5 @@
 #common values
-location    = "eastus"
+location    = "westus"
 name_prefix = "cmtr-wp09pu9z-mod8"
 
 #keyvault values
