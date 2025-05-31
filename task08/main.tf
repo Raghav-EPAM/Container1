@@ -71,8 +71,8 @@ module "aci" {
   rg_name            = local.rg_name
   image_name         = local.app_image_name
   image_tag          = var.image_tag
-  redis_hostname     = module.redis.redis_hostname
-  redis_primary_key  = module.redis.redis_primary_key
+  redis_hostname     = data.azurerm_key_vault_secret.redis_hostname.value
+  redis_primary_key  = data.azurerm_key_vault_secret.redis_pwd.value
   acr_login_server   = module.acr.acr_login_server
   acr_admin_username = module.acr.acr_admin_username
   acr_admin_password = module.acr.acr_admin_password
