@@ -1,9 +1,10 @@
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.aks_name
-  location            = var.location
-  resource_group_name = var.rg_name
-  dns_prefix          = var.dns_prefix
-  tags                = var.tags
+  name                   = var.aks_name
+  location               = var.location
+  resource_group_name    = var.rg_name
+  dns_prefix             = var.dns_prefix
+  tags                   = var.tags
+  local_account_disabled = false
 
   default_node_pool {
     name            = var.node_pool_name
@@ -11,6 +12,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size         = "Standard_D2ads_v5"
     os_disk_type    = "Ephemeral"
     os_disk_size_gb = 30
+
+    upgrade_settings {
+      drain_timeout_in_minutes      = 0
+      max_surge                     = "10%"
+      node_soak_duration_in_minutes = 0
+    }
   }
 
   identity {
@@ -26,6 +33,8 @@ resource "azurerm_role_assignment" "aks_pull_acr" {
   principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
   role_definition_name = "AcrPull"
   scope                = var.acr_id
+
+  depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
 
@@ -37,6 +46,7 @@ resource "azurerm_key_vault_access_policy" "aks_kv_policy1" {
   object_id    = azurerm_kubernetes_cluster.aks.key_vault_secrets_provider[0].secret_identity[0].object_id
 
   secret_permissions = ["Get", "List"]
+  depends_on         = [azurerm_role_assignment.aks_pull_acr]
 }
 
 resource "azurerm_key_vault_access_policy" "aks_kv_policy2" {
@@ -45,4 +55,5 @@ resource "azurerm_key_vault_access_policy" "aks_kv_policy2" {
   object_id    = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 
   secret_permissions = ["Get", "List"]
+  depends_on         = [azurerm_key_vault_access_policy.aks_kv_policy1]
 }
