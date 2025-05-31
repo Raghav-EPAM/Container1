@@ -24,5 +24,4 @@ resource "azurerm_key_vault_secret" "redis_primary_key" {
   value        = azurerm_redis_cache.redis.primary_access_key
   key_vault_id = var.key_vault_id
   depends_on   = [azurerm_redis_cache.redis]
-
 }
