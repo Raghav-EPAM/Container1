@@ -57,7 +57,7 @@ data "azurerm_key_vault_secret" "redis_pwd" {
   key_vault_id = module.keyvault.keyvault_id
   depends_on   = [module.redis]
 }
-data "azurerm_key_vault_secret" "redis_hostname" {
+data "azurerm_key_vault_secret" "redis_url" {
   name         = local.redis_hostname_secret_name
   key_vault_id = module.keyvault.keyvault_id
   depends_on   = [module.redis]
@@ -66,20 +66,26 @@ data "azurerm_key_vault_secret" "redis_hostname" {
 module "aci" {
   source = "./modules/aci"
 
-  aci_name           = local.aci_name
-  location           = var.location
-  rg_name            = local.rg_name
-  image_name         = local.app_image_name
-  image_tag          = var.image_tag
-  redis_hostname     = data.azurerm_key_vault_secret.redis_hostname.value
-  redis_primary_key  = data.azurerm_key_vault_secret.redis_pwd.value
+  rg_name  = local.rg_name
+  aci_name = local.aci_name
+  location = var.location
+
+  image_name     = "${module.acr.acr_login_server}/${local.app_image_name}:latest"
+  container_name = local.container_name
+
   acr_login_server   = module.acr.acr_login_server
   acr_admin_username = module.acr.acr_admin_username
   acr_admin_password = module.acr.acr_admin_password
-  container_name     = local.container_name
-  dns_name_label     = local.aci_name
-  acr_id             = module.acr.acr_id
-  tags               = local.common_tags
+
+  redis_hostname    = data.azurerm_key_vault_secret.redis_url.value
+  redis_primary_key = data.azurerm_key_vault_secret.redis_pwd.value
+  tags              = local.common_tags
+
+  container_environment_variables = var.aci_container_environment_variables
+  container_secure_environment_variables = {
+    "REDIS_URL" = data.azurerm_key_vault_secret.redis_url.value,
+    "REDIS_PWD" = data.azurerm_key_vault_secret.redis_pwd.value,
+  }
 
   depends_on = [azurerm_resource_group.resource_group, module.acr, module.keyvault, module.redis]
 }

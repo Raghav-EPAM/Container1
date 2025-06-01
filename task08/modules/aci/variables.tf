@@ -28,11 +28,6 @@ variable "image_name" {
   type        = string
 }
 
-variable "image_tag" {
-  description = "The Docker image tag to use for the container"
-  type        = string
-}
-
 variable "acr_login_server" {
   description = "The login server of the Azure Container Registry"
   type        = string
@@ -58,12 +53,12 @@ variable "redis_primary_key" {
   type        = string
 }
 
-variable "dns_name_label" {
-  description = "The DNS name label for the container instance"
-  type        = string
+variable "container_environment_variables" {
+  description = "A map of environment variables to set in the container"
+  type        = map(string)
 }
 
-variable "acr_id" {
-  description = "The ID of the Azure Container Registry"
-  type        = string
+variable "container_secure_environment_variables" {
+  description = "A map of secure environment variables to set in the container"
+  type        = map(string)
 }

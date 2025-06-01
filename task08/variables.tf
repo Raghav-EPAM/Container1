@@ -66,3 +66,13 @@ variable "sku_name_acr" {
   description = "SKU name for the Azure Container Registry"
   type        = string
 }
+
+variable "aci_container_environment_variables" {
+  description = "A map of environment variables to set in the ACI container"
+  type        = map(string)
+}
+
+variable "docker_image_name" {
+  description = "Name of the Docker image to be used in ACI"
+  type        = string
+}
