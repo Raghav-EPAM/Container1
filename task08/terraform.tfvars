@@ -13,7 +13,7 @@ sku_name_redis = "Basic"
 #acr values
 sku_name_acr        = "Basic"
 github_context_path = "https://github.com/Raghav-EPAM/Container1#main:task08/application"
-git_pat             = "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"
+git_pat             = ""
 image_tag           = "latest"
 docker_image_name   = ""
 
